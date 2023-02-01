@@ -73,11 +73,15 @@ Data is organised in 12 `.csv` files, each file contains data for a month in 202
 
 ## How did you verify the data’s integrity?
 
-- Integrity checks can be found in 3.4 belown including
-  - (1)
-  - (2)
+- Integrity checks can be found in **3.4** belown including
+  - All data in the dataset has the same format
+  - No singularities in the dataset
+  - No duplications of data & primary key `ride_id` is unique
+  - Both Casual & Member riders have 365 days of rides
 
 ## How does it help you answer your question?
+
+- The dataset contains 13 columns and the last column is `casual_member`
 
 ## Are there any problems with the data?
 
