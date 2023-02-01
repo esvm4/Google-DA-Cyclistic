@@ -87,7 +87,7 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 # Process
 
-In this step, there are 4 main questions to be addressed:
+- In this step, there are 4 main questions to be addressed:
 
 ## What tools are you choosing and why?
 
