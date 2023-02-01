@@ -36,11 +36,11 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 # Ask
 
-There is 2 main things needed to clarified in the Ask phase.
+- There is 2 main things needed to clarified in the Ask phase.
 
 ## Identify the problem you are trying to solve
 
-Identify the differences between annual members and casual riders.
+- Identify the differences between annual members and casual riders.
 
 ## Identify the stakeholders
 
@@ -49,12 +49,12 @@ Identify the differences between annual members and casual riders.
 
 # Prepare
 
-In this stage, we answer 6 questions:
+- In this stage, we answer 6 questions:
 
 ## Where is your data located? How is the data organized?
 
-Data is downloaded from [Cyclistic's website](https://divvy-tripdata.s3.amazonaws.com/index.html) and stored in a folder named `Data` in the same directory as this notebook.
-Data is organised in 12 `.csv` files, each file contains data for a month in 2022.
+- Data is downloaded from [Cyclistic's website](https://divvy-tripdata.s3.amazonaws.com/index.html) and stored in a folder named `Data` in the same directory as this notebook.
+  Data is organised in 12 `.csv` files, each file contains data for a month in 2022.
 
 ## Are there issues with bias or credibility in this data? Does your data ROCCC?
 
