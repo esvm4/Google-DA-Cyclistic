@@ -81,7 +81,12 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 ## How does it help you answer your question?
 
-- The dataset contains 13 columns and the last column is `casual_member`
+- The dataset for each year contains 13 columns & the last column `casual_member`, which flags whether the rider is a casual rider or a member, is precisely the key to find the differences between the 2 groups.
+- Potential differences the analysis may find are:
+  - Duration of rides
+  - Preferences of bike type
+  - Usage trends in ride duration, ride frequency, and day of the week that rides are taken
+  - The locations of popular stations and the most popular routes
 
 ## Are there any problems with the data?
 
