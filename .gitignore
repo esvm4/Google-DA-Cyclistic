@@ -1,5 +1,5 @@
 # ignore all files in the .vscode directory
-*/.vscode/*
+.vscode
 
 # ignore all files with the name tmp or temp
 *tmp*
