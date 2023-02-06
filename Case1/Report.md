@@ -108,6 +108,97 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 ## Have you ensured your data’s integrity?
 
+1. All data in the dataset must have the same format
+
+- A data file consists of 13 colums, when be imported into SQL Server should be:
+  - `ride_id`: VARCHAR(a)
+  - `rideable_type`: VARCHAR(b)
+  - `started_at`: DATETIME
+  - `ended_at`: DATETIME
+  - `start_station_name`: VARCHAR(c)
+  - `start_station_id`: VARCHAR(d)
+  - `end_station_name`: VARCHAR(e)
+  - `end_station_id`: VARCHAR(f)
+  - `start_lat`: DECIMAL(o, r)
+  - `start_lng`: DECIMAL(p, s)
+  - `end_lat`: FLOAT
+  - `end_lng`: FLOAT
+  - `member_casual`: VARCHAR(g)
+- To find [a;g] and [o,r], I create a Python function to find the max length of 6 column in the dataset, to parse the number to `VARCHAR()` in `SQL` and a function to check if that column has the same max length in 12 files..
+
+  ```python
+  def getMaxLen(yr):
+    if yr < 10:
+        yr = '0' + str(yr)
+    path = './Data/2022' + str(yr) + '-divvy-tripdata.csv'
+    df = pd.read_csv(path)
+    if df[col].dtype == 'object':
+        return df[col].str.len().max()
+    else:
+        return df[col].astype(str).str.len().max()
+  def checkSameMaxLen():
+    for i in range(1, 12):
+        for j in range(i+1, 13):
+            if getMaxLen(i) != getMaxLen(j):
+                return "12 columns of " + col + "do not have the same max length."
+    return "12 columns of " +  col + " have the same max length."
+  def getMaxLen12():
+    max = 0
+    for i in range(1, 13):
+        if getMaxLen(i) > max:
+            max = getMaxLen(i)
+    return "Max length of column " + col + " is " + str(max)
+
+  ```
+
+- To find [r;s], I create a Python function to find min value and max value of 12 column in the dataset, to find the range of the column values.
+
+  ```python
+  def getMax(yr):
+   if yr < 10:
+       yr = '0' + str(yr)
+   path = './Data/2022' + str(yr) + '-divvy-tripdata.csv'
+   df = pd.read_csv(path)
+   return  df[col].max()
+
+  def getMax12():
+     max = getMax(1)
+     for i in range(2, 13):
+         if getMax(i) > max:
+             max = getMax(i)
+     return "Max of column " + col + " is " + str(max)
+
+  def getMin(yr):
+     if yr < 10:
+         yr = '0' + str(yr)
+     path = './Data/2022' + str(yr) + '-divvy-tripdata.csv'
+     df = pd.read_csv(path)
+     return  df[col].min()
+
+  def getMin12():
+     min = getMin(1)
+     for i in range(2, 13):
+         if getMin(i) < min:
+             min = getMin(i)
+     return "Min of column " + col + " is " + str(min)
+  ```
+
+- **From these functions, I've come to these data types belove:**
+
+  - `ride_id`: VARCHAR(16)
+  - `rideable_type`: VARCHAR(13)
+  - `started_at`: DATETIME
+  - `ended_at`: DATETIME
+  - `start_station_name`: VARCHAR(64)
+  - `start_station_id`: VARCHAR(44)
+  - `end_station_name`: VARCHAR(64)
+  - `end_station_id`: VARCHAR(44)
+  - `start_lat`: DECIMAL(18, 16)
+  - `start_lng`: DECIMAL(18, 16)
+  - `end_lat`: DECIMAL(18, 16)
+  - `end_lng`: DECIMAL(18, 16)
+  - `member_casual`: VARCHAR(6)
+
 ## What steps have you taken to ensure that your data is clean?
 
 ## How can you verify that your data is clean and ready to analyze?
