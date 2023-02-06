@@ -91,6 +91,12 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 ## Are there any problems with the data?
 
+- There are some problems with the dataset as below:
+  - There are rides with duration less than 60s - which can be removed for [this reason](https://www.divvybikes.com/system-data)
+  - There are rides with duration more than 24 hours - which can be removed for 2 reasons: [stolen bikes issues](https://help.divvybikes.com/hc/en-us/articles/360033123412-My-bike-was-lost-or-stolen) and [this issue](https://help.divvybikes.com/hc/en-us/articles/360033484791-What-if-I-keep-a-bike-out-too-long-)
+  - Some rides have NULL station names - which can be removed for [this reason](https://divvybikes.com/system-data)
+  - Some rides have TEST in their station names - which can be removed for [this reason](https://divvybikes.com/system-data)
+
 # Process
 
 - In this step, there are 4 main questions to be addressed:
