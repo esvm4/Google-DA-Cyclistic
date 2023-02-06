@@ -103,6 +103,9 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 ## What tools are you choosing and why?
 
+- I choose to work with SQL Server because it is a great free alternative to BigQuery to work with database. A copy of sql file will be placed in the same folder as this report under the name `Process.sql`.
+- I also use Python in Jupyter notebook to clean data.
+
 ## Have you ensured your data’s integrity?
 
 ## What steps have you taken to ensure that your data is clean?
