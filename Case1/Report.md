@@ -75,9 +75,10 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 - Integrity checks can be found in **3.4** belown including
   - All data in the dataset has the same format
-  - No singularities in the dataset
   - No duplications of data & primary key `ride_id` is unique
+  - No null values
   - Both Casual & Member riders have 365 days of rides
+  - Whether to keep or remove the outliers
 
 ## How does it help you answer your question?
 
