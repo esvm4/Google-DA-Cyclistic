@@ -199,9 +199,173 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
   - `end_lng`: DECIMAL(18, 16)
   - `member_casual`: VARCHAR(6)
 
+- We need to import all 12 data files into SQL Server, format columns, and join them as one table.
+
+  - As 202209 → 202212 csv files have double quotes `""` in everything, which is not uniform with other files, I need to remove them first.
+
+    ```python
+    def removeFieldquote(yr):
+      if yr < 10:
+          yr = "0" + str(yr)
+      path = "./Data/2022"+ str(yr) +"-divvy-tripdata.csv"
+      with open(path, 'r') as f:
+          reader = csv.reader(f)
+          my_list = list(reader)
+      for each in my_list:
+          each[0] = each[0].replace('"', '')
+      with open(path, 'w') as f:
+          writer = csv.writer(f)
+          writer.writerows(my_list)
+    ```
+
+  - Import 12 data files as tables into SQL Server as folow:
+    ```sql
+    -- create table
+    CREATE TABLE [dbo].[tableName]
+    (
+      ride_id VARCHAR(16) NOT NULL,
+      rideable_type VARCHAR(13),
+      started_at DATETIME,
+      ended_at DATETIME,
+      start_station_name VARCHAR(64),
+      start_station_id VARCHAR(44),
+      end_station_name VARCHAR(64),
+      end_station_id VARCHAR(44),
+      start_lat DECIMAL(18, 16),
+      start_lng DECIMAL(18, 16),
+      end_lat DECIMAL(18, 16),
+      end_lng DECIMAL(18, 16),
+      member_casual CHAR(6)
+    )
+    -- import data
+    BULK INSERT [dbo].[tableName]
+    FROM 'path\to\file.csv'
+    WITH
+    (
+    CHECK_CONSTRAINTS,
+    FIRSTROW = 2,
+    TABLOCK,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n'
+    );
+    ```
+  - Now that 12 tables have the same data format, we can join 12 tables into one:
+
+    ```sql
+    -- join all data
+    INSERT INTO [dbo].[2022]
+      SELECT * FROM [dbo].[202201]
+      UNION ALL
+      SELECT * FROM [dbo].[202202]
+      UNION ALL
+      ...
+      SELECT * FROM [dbo].[202211]
+      UNION ALL
+      SELECT * FROM [dbo].[202212]
+    ```
+
 ## What steps have you taken to ensure that your data is clean?
 
+1. Wwe need to check for duplications
+
+   ```sql
+   -- check for ride_id duplications
+   SELECT
+    ride_id,
+    COUNT(ride_id) AS appearances
+   FROM [dbo].[2022]
+   GROUP BY ride_id
+   HAVING COUNT(ride_id) > 1
+   ```
+
+- From the result, we can see that there are no primary key duplications in the dataset.
+
+2. Check for null and test values in the dataset.
+
+- As the case doesn't state clearly whether test stations have "test" in their names or id, I may ask the data collector for more information. In this case, I remove all of them, to avoid any singularities.
+
+  ```sql
+  -- check for nulls and test stations,
+  SELECT
+  	SUM(CASE WHEN ride_id IS NULL THEN 1 ELSE 0 END) AS ride_id_null,
+  	SUM(CASE WHEN rideable_type IS NULL THEN 1 ELSE 0 END) AS rideable_type_null,
+  	SUM(CASE WHEN started_at IS NULL THEN 1 ELSE 0 END) AS started_at_null,
+  	SUM(CASE WHEN ended_at IS NULL THEN 1 ELSE 0 END) AS ended_at_null,
+  	SUM(CASE WHEN start_station_id IS NULL THEN 1 ELSE 0 END) AS start_station_id_null,
+  	SUM(CASE WHEN end_station_id IS NULL THEN 1 ELSE 0 END) AS end_station_id_null,
+  	SUM(CASE WHEN member_casual IS NULL THEN 1 ELSE 0 END) AS member_casual_null,
+  	SUM(CASE WHEN start_station_name LIKE '%TEST%' THEN 1 ELSE 0 END) AS start_station_test,
+  	SUM(CASE WHEN start_station_id LIKE '%TEST%' THEN 1 ELSE 0 END) AS start_station_id_test,
+  	SUM(CASE WHEN end_station_name LIKE '%TEST%' THEN 1 ELSE 0 END) AS end_station_test,
+  	SUM(CASE WHEN end_station_ID LIKE '%TEST%' THEN 1 ELSE 0 END) AS end_station_id_test
+  FROM [dbo].[2022]
+  ```
+
+- The results return (just show none 0 ones):
+  | start_station_id_null | end_station_id_null | start_station_test | start_station_id_test | end_station_test | end_station_id_test |
+  | --- | --- | --- | --- | --- | --- |
+  | 833064 | 892742 | 1 | 2011 | 1 | 243 |
+
+- Count rides with duration < 60s or > 24hrs → tne result returns 126449 rides
+
+  ```sql
+  -- count rides with duration < 60s or > 24hrs
+  SELECT COUNT(ride_duration) FROM
+  (SELECT * FROM
+  	(SELECT DATEDIFF(SECOND, started_at, ended_at) AS ride_duration
+  	FROM [dbo].[2022])
+  AS TMP0
+  WHERE ride_duration < 60 OR ride_duration > 24*60*60)
+  AS TMP1
+  ```
+
+3. Filter out data that we have checked as above.
+
+- To make it simpler, the final joined table is excluded 6 columns `start_station_name`, `start_lat`, `start_lng`, and `end_station_name`, `end_lat`, `end_lng` from the table as each 3 contains the same information as `start_station_id` and `end_station_id` respectively and included 1 more column `ride_duration` calculated from `started_at` and `ended_at`.
+
+  ```sql
+    -- succinct table: 7 columns
+    SELECT
+  	ride_id, rideable_type,
+  	started_at, ended_at, DATEDIFF(SECOND, started_at, ended_at) AS ride_duration,
+  	start_station_id, end_station_id, member_casual
+  INTO [dbo].[succint2022]
+  FROM [dbo].[2022]
+  WHERE
+  	start_station_id IS NOT NULL
+  	AND
+  	end_station_id IS NOT NULL
+  	AND
+  	start_station_name NOT LIKE '%TEST'
+  	AND
+  	start_station_id NOT LIKE '%TEST'
+  	AND
+  	end_station_name NOT LIKE '%TEST'
+  	AND
+  	end_station_id NOT LIKE '%TEST'
+  	AND
+  	DATEDIFF(SECOND, started_at, ended_at) > 60
+  	AND
+  	DATEDIFF(SECOND, started_at, ended_at) < 24*60*60
+
+  ```
+
+- From 5 667 717 rows of data, the succint table now has 4 291 805 rows, which means 25.3% of data was removed.
+
+4. Ensure both Casual riders & Member have 365 days of rides
+
+   ```sql
+   -- Check if Casual riders & Members both have 365 days of rides
+   SELECT member_casual, COUNT(DISTINCT start_date) AS dates_appeared FROM
+   	(SELECT *, DATEADD(day, DATEDIFF(DAY, 0, started_at), 0) AS start_date
+   	FROM [dbo].[succint2022])
+   	AS TMP0
+   GROUP BY member_casual
+   ```
+
 ## How can you verify that your data is clean and ready to analyze?
+
+- As all steps above can also be done in Python, I can use Python to verify the results. For example, I can use Python to check for nulls and test stations, and the results are the same as the SQL query above.
 
 # Analyse
 
