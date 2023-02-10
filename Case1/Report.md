@@ -369,6 +369,9 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 ## How can you verify that your data is clean and ready to analyze?
 
 - As all steps above can also be done in Python, I can use Python to verify the results. The code is in the file `Clean.ipynb` in the same folder as this report.
+- About whether to keep outliners
+  - Outliers (rides < 60s or > 24hrs) that are not suitable have been fully removed.
+  - Any other outliers have been decided to be kept, because there're no reasons to eliminate them.
 
 # Analyse
 
