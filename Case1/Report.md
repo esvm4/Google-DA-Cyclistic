@@ -383,9 +383,27 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 ## What surprises did you discover in the data?
 
+- There were no members who used docked bikes in 2022.
+- Classic bikes were used 365 days by both, docked bikes were used 365 days by casual riders, meanwhile electrice bikes were used 364 days by both.
+- Classic bikes seemed to be the most popular.
+- Casual riders used bikes longer than members, in general.
+- The most popular start station is Streeter Dr & Grand Ave for casual riders and all rides but it was Kingsbury St & Kinzie St among members.
+- May-September were the most popular months for casual riders, while in January, February, and December, the business was slow.
+- Around 16-18 in the evening, people were more likely to use bikes.
+
 ## What trends or relationships did you find in the data?
 
+- Apart from the most popular station, the number of rides per station was not very different.
+- Members really prefered to use classical bikes, the number nearly doubled that of casual riders.
+- Bike usage went up to reach peak in the summer, then went down in the winter, making its usage an U-shaped curve.
+
 ## How will these insights help answer your business questions?
+
+Those insights above can help me answer the differences between members and casual riders as below:
+
+- Members prefered Kingsbury St & Kinzie while casual riders preferred Streeter Dr & Grand Ave. This may happened due to the lack of marketing about the benefits of a membership in the area of Streeter Dr & Grand Ave.
+- Although the numbers are low, members still chose to use the service in Jan, Feb, Nov and Dec, making up for 3/4 of the usage in those months. This may be due to the fact that casual riders are more likely to use bikes for leisure, while members are more likely to use bikes for commuting to work.
+- The same goes for the time of day, members were more likely to use bikes for commuting to work in the morning at 7-8, while casual riders didn't it that much.
 
 # Share
 
