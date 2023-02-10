@@ -4,3 +4,7 @@
 # ignore all files with the name tmp or temp
 *tmp*
 *temp*
+
+
+# ignore all files in Data/
+Data/
