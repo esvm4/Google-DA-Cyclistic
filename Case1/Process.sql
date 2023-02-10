@@ -124,13 +124,13 @@ WHERE
 	AND
 	end_station_id IS NOT NULL
 	AND
-	start_station_name NOT LIKE '%TEST'
+	start_station_name NOT LIKE '%TEST%'
 	AND
-	start_station_id NOT LIKE '%TEST'
+	start_station_id NOT LIKE '%TEST%'
 	AND
-	end_station_name NOT LIKE '%TEST'
+	end_station_name NOT LIKE '%TEST%'
 	AND
-	end_station_id NOT LIKE '%TEST'
+	end_station_id NOT LIKE '%TEST%'
 	AND
 	DATEDIFF(SECOND, started_at, ended_at) > 60
 	AND
