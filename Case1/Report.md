@@ -29,6 +29,9 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
    3. [What steps have you taken to ensure that your data is clean?](#what-steps-have-you-taken-to-ensure-that-your-data-is-clean)
    4. [How can you verify that your data is clean and ready to analyze?](#how-can-you-verify-that-your-data-is-clean-and-ready-to-analyze)
 4. [Analyse](#analyse)
+   1. [What surprises did you discover in the data?](#what-surprises-did-you-discover-in-the-data)
+   2. [What trends or relationships did you find in the data?](#what-trends-or-relationships-did-you-find-in-the-data)
+   3. [How will these insights help answer your business questions?](#how-will-these-insights-help-answer-your-business-questions)
 5. [Share](#share)
 6. [Act](#act)
 
@@ -350,7 +353,7 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
   ```
 
-- From 5 667 717 rows of data, the succint table now has 4 291 805 rows, which means 25.3% of data was removed.
+- From 5 667 717 rows of data, the succint table now has 4 291 293 rows, which means 24.3% of data was removed.
 
 4. Ensure both Casual riders & Member have 365 days of rides
 
@@ -365,9 +368,21 @@ In this case study, I will break down the problem & solve it in 6 steps, recomme
 
 ## How can you verify that your data is clean and ready to analyze?
 
-- As all steps above can also be done in Python, I can use Python to verify the results. For example, I can use Python to check for nulls and test stations, and the results are the same as the SQL query above.
+- As all steps above can also be done in Python, I can use Python to verify the results. The code is in the file `Clean.ipynb` in the same folder as this report.
 
 # Analyse
+
+- The data is now clean and ready to be analysed. In this step, there are 5 questions to be addressed.
+- All the analysis is done in Python under the file `Analyse.ipynb` in the same folder as this report.
+- As the data in the succint2022 table has been cleaned, formatted and filtered out to keep just the information I need for this analysis, it is fine to say that I can skip the 2 first steps: organising and formatting.
+  - How should you organize your data to perform analysis on it?
+  - Has your data been properly formatted?
+
+## What surprises did you discover in the data?
+
+## What trends or relationships did you find in the data?
+
+## How will these insights help answer your business questions?
 
 # Share
 
