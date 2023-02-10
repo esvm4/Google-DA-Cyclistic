@@ -410,3 +410,8 @@ Those insights above can help me answer the differences between members and casu
 All the images of the results are stored in the file `Analyse.ipynb` in the same folder as this report.
 
 # Act
+
+Based on those insights, I would recommend the following actions to the company:
+
+- Market the benefits of a membership in the area of Streeter Dr & Grand Ave.
+- Casual riders that used bikes 7-8 a.m or in Jan, Feb, Nov and Dec should be encouraged to become members. The company should actively reach out to them to offer them a membership, especially a trial one.
