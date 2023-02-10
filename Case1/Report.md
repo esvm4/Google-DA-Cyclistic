@@ -407,4 +407,6 @@ Those insights above can help me answer the differences between members and casu
 
 # Share
 
+All the images of the results are stored in the file `Analyse.ipynb` in the same folder as this report.
+
 # Act
