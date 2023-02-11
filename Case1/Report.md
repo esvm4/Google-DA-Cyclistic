@@ -415,3 +415,4 @@ Based on those insights, I would recommend the following actions to the company:
 
 - Market the benefits of a membership in the area of Streeter Dr & Grand Ave.
 - Casual riders that used bikes 7-8 a.m or in Jan, Feb, Nov and Dec should be encouraged to become members. The company should actively reach out to them to offer them a membership, especially a trial one.
+- The usage of docked bikes were low in both groups, perhaps the company didn't place many docked bikes or people actually didn't like docked bikes. Either way, the company should do something further about the numbers of docked bikes and classical bikes.
